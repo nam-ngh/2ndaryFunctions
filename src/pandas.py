@@ -1,6 +1,6 @@
 import pandas as pd
 
-def compute_2D(df_all, d1: str, d2: str, d3: str=None, method='sum'):
+def compute_2D(df_all, d1: str, d2: str, d3: str=None, method='sum', total=True):
     '''
     Returns df where rows are d1 uniques, columns are d2 uniques, cells are d2-by-d1-count or d3 analysis (if provided)
 
@@ -30,10 +30,11 @@ def compute_2D(df_all, d1: str, d2: str, d3: str=None, method='sum'):
         df = pd.merge(df, vals_by_d1, how='left', left_index=True, right_index=True,)
     
     df = df.fillna(0)
-    df['total'] = df.sum(axis=1)
+    if total == True:
+        df['total'] = df.sum(axis=1)
     return df
 
-def compute_2D_multiple_d2(df_all, d1: str, d2: list, d3: str=None, method='sum'):
+def compute_2D_multiple_d2(df_all, d1: str, d2: list, d3: str=None, method='sum', total=True):
     '''
     Returns df where rows are d1 uniques, columns are d2 uniques, cells are d2-by-d1-count or d3 analysis (if provided).
     Unlike compute_2D where d2 is one column with multiple categories, here, d2 is a list of columns, with 0/1 value type.
@@ -67,5 +68,6 @@ def compute_2D_multiple_d2(df_all, d1: str, d2: list, d3: str=None, method='sum'
         df = pd.merge(df, vals_by_d1, how='left', left_index=True, right_index=True,)
     
     df = df.fillna(0)
-    df['total'] = df.sum(axis=1)
+    if total == True:
+        df['total'] = df.sum(axis=1)
     return df
