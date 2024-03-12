@@ -60,12 +60,14 @@ def plot_2D(df_2D, title: str='', plot_total: bool=True,
     )
     fig.show()
 
-def default_y2(title='', side='right',
-    show_ticks=False, range=[0,1],
-    show_grid=False, grid_color='gray'):
+def default_y2(range, title='',
+    side='right', show_ticks=False,
+    show_grid=False, grid_color='gray',
+    show_line=False, line_color='black'):
     return {
         'title': title, 'side': side,
         'anchor':"x", 'overlaying':"y",
         'showticklabels': show_ticks, 'range': range,
         'showgrid': show_grid, 'gridcolor': grid_color, 
+        'showline': show_line, 'linecolor': line_color
     }
