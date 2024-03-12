@@ -1,9 +1,9 @@
 import plotly.graph_objects as go
 import pandas as pd
 
-def plot_2D(df_2D, plot_total: bool=True, 
-    columns: list=None, bar: bool=False, 
-    bar_mode: str='group', line_fill: str='tozeroy',):
+def plot_2D(df_2D, title: str='', plot_total: bool=True, 
+    columns: list=None, bar: bool=False, bar_mode: str='group', 
+    line_fill: str='tozeroy',):
     
     '''
     Default EDA plot for multiple categories along an x-axis, with a total line. Categories can be plotted as lines OR grouped/stacked bars.
@@ -46,6 +46,7 @@ def plot_2D(df_2D, plot_total: bool=True,
         ))
 
     fig.update_layout(
+        title=title,
         height=800,
         plot_bgcolor='white',
         yaxis=dict(
@@ -60,10 +61,11 @@ def plot_2D(df_2D, plot_total: bool=True,
     fig.show()
 
 def default_y2(title='', side='right',
-    show_ticks=False, axis_range=[0,1],):
+    show_ticks=False, range=[0,1],
+    show_grid=False, grid_color='gray'):
     return {
         'title': title, 'side': side,
         'anchor':"x", 'overlaying':"y",
-        'showticklabels': show_ticks,
-        'range': axis_range,
+        'showticklabels': show_ticks, 'range': range,
+        'showgrid': show_grid, 'gridcolor': grid_color, 
     }
