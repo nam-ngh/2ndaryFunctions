@@ -14,7 +14,7 @@ def compute_2D(df_all, d1: str, d2: str, d3: str=None, method='sum', total=False
     df = pd.DataFrame(index=df_all[d1].drop_duplicates().sort_values())
 
     # iterate over each d2 unique value:
-    for cat in df_all[d1].drop_duplicates().sort_values():
+    for cat in df_all[d2].drop_duplicates().sort_values():
         if d3 is None:
             vals_by_d1 = df_all.loc[df_all[d2]==cat].groupby([d1]).size()
         elif d3 is not None:
