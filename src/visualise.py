@@ -1,5 +1,5 @@
 import plotly.graph_objects as go
-import pandas as pd
+import pandas
 
 def plot_2D(df_2D, title: str='', plot_total: bool=True, 
     columns: list=None, bar: bool=False, bar_mode: str='group', 

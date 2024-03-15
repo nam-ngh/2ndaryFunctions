@@ -1,6 +1,6 @@
 import pandas as pd
 
-def compute_2D(df_all, d1: str, d2: str, d3: str=None, method='sum', total=True):
+def compute_2D(df_all, d1: str, d2: str, d3: str=None, method='sum', total=False, mean=False):
     '''
     Returns df where rows are d1 uniques, columns are d2 uniques, cells are d2-by-d1-count or d3 analysis (if provided)
 
@@ -14,7 +14,7 @@ def compute_2D(df_all, d1: str, d2: str, d3: str=None, method='sum', total=True)
     df = pd.DataFrame(index=df_all[d1].drop_duplicates().sort_values())
 
     # iterate over each d2 unique value:
-    for cat in df_all.loc[~(df_all[d2].isna()), d2].unique():
+    for cat in df_all[d1].drop_duplicates().sort_values():
         if d3 is None:
             vals_by_d1 = df_all.loc[df_all[d2]==cat].groupby([d1]).size()
         elif d3 is not None:
@@ -32,9 +32,11 @@ def compute_2D(df_all, d1: str, d2: str, d3: str=None, method='sum', total=True)
     df = df.fillna(0)
     if total == True:
         df['total'] = df.sum(axis=1)
+    if mean == True:
+        df['mean'] = df.mean(axis=1)
     return df
 
-def compute_2D_multiple_d2(df_all, d1: str, d2: list, d3: str=None, method='sum', total=True):
+def compute_2D_multiple_d2(df_all, d1: str, d2: list, d3: str=None, method='sum', total=False, mean=False):
     '''
     Returns df where rows are d1 uniques, columns are d2 uniques, cells are d2-by-d1-count or d3 analysis (if provided).
     Unlike compute_2D where d2 is one column with multiple categories, here, d2 is a list of columns, with 0/1 value type.
@@ -70,4 +72,6 @@ def compute_2D_multiple_d2(df_all, d1: str, d2: list, d3: str=None, method='sum'
     df = df.fillna(0)
     if total == True:
         df['total'] = df.sum(axis=1)
+    if mean == True:
+        df['mean'] = df.mean(axis=1)
     return df
