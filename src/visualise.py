@@ -1,12 +1,15 @@
 import plotly.graph_objects as go
 import pandas
 
-def plot_2D(df_2D, title: str='', plot_total: bool=True, 
+def plot_2D(df_2D, title: str='', plot_total: bool=False, 
     columns: list=None, bar: bool=False, bar_mode: str='group', 
     line_fill: str='tozeroy',):
     
     '''
-    Default EDA plot for multiple categories along an x-axis, with a total line. Categories can be plotted as lines OR grouped/stacked bars.
+    Default multi-line plot for multiple categories. x = df index, y = df columns 
+
+    Required: 2D df
+    Optional: everything else
 
     Args:
     - df_2D: (pandas.DataFrame) containing data to be plotted. Index is mapped to x-axis, columns represent categories.
