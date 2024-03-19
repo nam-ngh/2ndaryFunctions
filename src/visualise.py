@@ -71,3 +71,21 @@ def default_y2(range, title='',
         'showgrid': show_grid, 'gridcolor': grid_color, 
         'showline': show_line, 'linecolor': line_color
     }
+
+def map_object_colour(all_objs: list, col_dict: dict, default_col: str='lightgray',):
+    '''
+    Returns {obj: col} map for every object in all_objects
+    
+    ARGS:
+    - all_objs: list of all objects
+    - col_dict: dict mapping special colours to lists of some special objects {col1: [obj1, obj2, etc.], ...}
+    - default_col: colour to be applied to all objs not specified in col_dict
+    '''
+    obj_dict = {}
+    for o in all_objs:
+        obj_dict[o] = default_col
+        for col in col_dict.keys():
+            if o in col_dict[col]:
+                obj_dict[o] = col
+    
+    return obj_dict
