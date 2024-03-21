@@ -75,3 +75,12 @@ def compute_2D_multiple_d2(df_all, d1: str, d2: list, d3: str=None, method='sum'
     if mean == True:
         df['mean'] = df.mean(axis=1)
     return df
+
+def sum_others(series: pd.Series, top: int):
+    '''
+    Returns top n elements of a series and sum everything else to index 'Others'
+    '''
+    tail_len = len(series) - top
+    out = series.head(top)
+    out.loc['Others'] = series.tail(tail_len).sum()
+    return out
