@@ -3,7 +3,7 @@ import pandas
 
 def plot_2D(df_2D, title: str='', plot_total: bool=False, 
     columns: list=None, bar: bool=False, bar_mode: str='group', 
-    line_fill: str='tozeroy',):
+    line_fill: str='none',):
     
     '''
     Default multi-line plot for multiple categories. x = df index, y = df columns 
@@ -61,7 +61,7 @@ def plot_2D(df_2D, title: str='', plot_total: bool=False,
         ),
         barmode=bar_mode
     )
-    fig.show()
+    return fig
 
 def default_y2(range, title='',
     side='right', show_ticks=False,
