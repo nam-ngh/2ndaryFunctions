@@ -8,6 +8,5 @@ PANDAS
 VISUALISE
 - plot_2D: quickly plots the resulting matrix from the pandas 2D functions
 - default_y2: default y2 axis configuration for plotly.go
-- map_object_colour: batch colouring function - mapping specific colours to some objects from all objects. The rest is mapped to default colour
 
 
