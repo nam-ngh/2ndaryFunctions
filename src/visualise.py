@@ -1,5 +1,7 @@
 import plotly.graph_objects as go
-import pandas
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
 
 def plot_2D(df_2D, title: str='', plot_total: bool=False, 
     columns: list=None, bar: bool=False, bar_mode: str='group', 
@@ -74,3 +76,24 @@ def default_y2(range, title='',
         'showgrid': show_grid, 'gridcolor': grid_color, 
         'showline': show_line, 'linecolor': line_color
     }
+
+def plot_4by4(df: pd.DataFrame, plot_type: str='kde', col_group: int=0):
+    '''
+    Plots distribution for all columns of a df.
+    Args:
+    - df: input (pd.DataFrame)
+    - plot_type: (string) 'kde' or 'box'
+    - col_group: if df has more than 16 columns, use col_group to specify the group to be plotted (0,1,2,...)
+    '''
+    fig, axes = plt.subplots(nrows=4, ncols=4, figsize=(24,24))
+    cols = df.columns[(16*col_group):(16*(col_group + 1))]
+    for i, column in enumerate(cols):
+        if plot_type == 'kde':
+            sns.kdeplot(df[column],ax=axes[i//4,i%4], color='orange')
+        elif plot_type == 'box':
+            sns.boxplot(df[column],ax=axes[i//4,i%4])
+        axes[i//4,i%4].set_title(column)
+        # Hide top and right spines
+        axes[i//4,i%4].spines['top'].set_visible(False)
+        axes[i//4,i%4].spines['right'].set_visible(False)
+    return fig
