@@ -24,6 +24,10 @@ def compute_2D(df_all, d1: str, d2: str, d3: str=None, method='sum', total=False
                 vals_by_d1 = df_all.loc[df_all[d2]==cat].groupby([d1])[d3].mean()
             elif method=='nunique':
                 vals_by_d1 = df_all.loc[df_all[d2]==cat].groupby([d1])[d3].nunique()
+            elif method=='min':
+                vals_by_d1 = df_all.loc[df_all[d2]==cat].groupby([d1])[d3].min()
+            elif method=='max':
+                vals_by_d1 = df_all.loc[df_all[d2]==cat].groupby([d1])[d3].max()
         
         # rename vals_by_d1 and merge into df
         vals_by_d1.name = 'None' if cat==None else cat
@@ -64,6 +68,10 @@ def compute_2D_multiple_d2(df_all, d1: str, d2: list, d3: str=None, method='sum'
                 vals_by_d1 = df_all.loc[df_all[cat]==1].groupby([d1])[d3].mean()
             elif method=='nunique':
                 vals_by_d1 = df_all.loc[df_all[cat]==1].groupby([d1])[d3].nunique()
+            elif method=='min':
+                vals_by_d1 = df_all.loc[df_all[cat]==1].groupby([d1])[d3].min()
+            elif method=='max':
+                vals_by_d1 = df_all.loc[df_all[cat]==1].groupby([d1])[d3].max()
         
         # rename vals_by_d1 and merge into df
         vals_by_d1.name = 'None' if cat==None else cat
