@@ -9,7 +9,7 @@ def compute_2D(df_all, d1: str, d2: str, d3: str=None, method='sum', total=False
     - d1: primary categorical column - set to output row index.
     - d2: secondary categorical column - set to output columns.
     - d3: optional tertiary category whose value will be analysed using the passed method
-    - method: 'sum', 'mean' or 'nunique'. Only use where d3 != None.
+    - method: 'sum', 'mean', 'min', 'max' or 'nunique'. Only use where d3 != None.
     '''
     df = pd.DataFrame(index=df_all[d1].drop_duplicates().sort_values())
 
@@ -30,8 +30,9 @@ def compute_2D(df_all, d1: str, d2: str, d3: str=None, method='sum', total=False
                 vals_by_d1 = df_all.loc[df_all[d2]==cat].groupby([d1])[d3].max()
         
         # rename vals_by_d1 and merge into df
-        vals_by_d1.name = 'None' if cat==None else cat
-        df = pd.merge(df, vals_by_d1, how='left', left_index=True, right_index=True,)
+        ser = pd.Series(vals_by_d1)
+        ser.name = 'None' if cat==None else cat
+        df = pd.merge(df, ser, how='left', left_index=True, right_index=True,)
     
     df = df.fillna(0)
     if total == True:
@@ -68,10 +69,6 @@ def compute_2D_multiple_d2(df_all, d1: str, d2: list, d3: str=None, method='sum'
                 vals_by_d1 = df_all.loc[df_all[cat]==1].groupby([d1])[d3].mean()
             elif method=='nunique':
                 vals_by_d1 = df_all.loc[df_all[cat]==1].groupby([d1])[d3].nunique()
-            elif method=='min':
-                vals_by_d1 = df_all.loc[df_all[cat]==1].groupby([d1])[d3].min()
-            elif method=='max':
-                vals_by_d1 = df_all.loc[df_all[cat]==1].groupby([d1])[d3].max()
         
         # rename vals_by_d1 and merge into df
         vals_by_d1.name = 'None' if cat==None else cat
